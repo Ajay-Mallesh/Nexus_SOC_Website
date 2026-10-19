@@ -5,12 +5,35 @@
 
 document.addEventListener('DOMContentLoaded', function() {
   setupOfflineMode();
+  setupThemeToggle();
   initializeNavigation();
   setupPageRouting();
   setupMobileMenu();
   setupBackToTop();
   setupWelcomePopup();
 });
+
+function setupThemeToggle() {
+  const themeToggle = document.getElementById('themeToggle');
+  if (!themeToggle) return;
+
+  const savedTheme = window.localStorage.getItem('nexus-soc-theme');
+  applyTheme(savedTheme === 'light' ? 'light' : 'dark');
+
+  themeToggle.addEventListener('click', () => {
+    const nextTheme = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light';
+    window.localStorage.setItem('nexus-soc-theme', nextTheme);
+    applyTheme(nextTheme);
+  });
+
+  function applyTheme(theme) {
+    document.documentElement.dataset.theme = theme;
+    themeToggle.setAttribute('aria-pressed', String(theme === 'light'));
+    themeToggle.setAttribute('aria-label', `Switch to ${theme === 'light' ? 'dark' : 'light'} theme`);
+    themeToggle.querySelector('.theme-toggle-icon').textContent = theme === 'light' ? '☾' : '☀';
+    themeToggle.querySelector('.theme-toggle-label').textContent = theme === 'light' ? 'Dark' : 'Light';
+  }
+}
 
 function setupOfflineMode() {
   const offlinePage = document.getElementById('offlinePage');
@@ -177,20 +200,19 @@ function getRouteFromHash() {
 // ===================================================================
 
 function setupPageRouting() {
-  // Check URL hash for initial page
-  const route = getRouteFromHash();
-  navigateToPage(route.pageId, route.sectionId);
+  // Start each full page load at Home without adding a history entry.
+  window.history.replaceState(
+    window.history.state,
+    '',
+    `${window.location.pathname}${window.location.search}#home`
+  );
+  navigateToPage('home');
 
   // Handle back/forward buttons
   window.addEventListener('hashchange', () => {
     const nextRoute = getRouteFromHash();
     navigateToPage(nextRoute.pageId, nextRoute.sectionId);
   });
-
-  // Set default page on load
-  if (!window.location.hash) {
-    navigateToPage('home');
-  }
 }
 
 // ===================================================================

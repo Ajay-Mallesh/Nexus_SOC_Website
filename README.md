@@ -41,12 +41,12 @@ This is a static website and does not require a build step or package installati
 
 3. Visit `http://localhost:8000`.
 
-The website uses hash-based navigation. A local web server is recommended to ensure browser behavior matches deployment. The realtime visitor counter contacts CountAPI and requires an internet connection; if the service is unavailable, the page remains usable and the counter may not update.
+The website uses hash-based navigation and returns to Home after a page reload. Use the navigation bar's theme button to switch between light and dark themes; your selection is saved in the browser. A local web server is recommended to ensure browser behavior matches deployment. The realtime visitor counter contacts CountAPI and requires an internet connection; if the service is unavailable, the page remains usable and the counter may not update.
 
 ## Project layout
 
 ```text
-v1.0.0/
+v1.1.0/
 ├── index.html                 # Website pages and project documentation
 ├── css/
 │   └── styles.css             # Responsive layout, diagrams, and visual styling
@@ -72,3 +72,12 @@ v1.0.0/
 ## Educational use and disclaimer
 
 This project is provided for educational and non-commercial community use. The documented methodologies, Tcl examples, UPF constructs, synthesis flows, timing constraints, and physical-implementation strategies are for educational and research purposes. EDA commands and flows may vary by tool version, process, technology files, and signoff methodology. Validate all flows and results in the intended environment; the project authors assume no responsibility for design or fabrication outcomes.
+
+## Versioning
+
+### 1.1.0 — 19/10/2026
+
+- Added persistent light and dark theme selection.
+- Return to the Home page after reloading.
+- Improved light-theme readability across diagrams, tables, and footer content.
+- Refined contributor LinkedIn badges and profile logo display.
